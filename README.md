@@ -20,6 +20,7 @@ To install, simply copy the files to your project.
 ```
 
 ### Posting Selection
+To post the selection with the form, add an input to hold selection.
 ```
 	<div id="ns">
 	    <input type="hidden" name="breadcrubs" />
