@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Nested Select</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-nestedselect.css">
+        <script type="text/javascript" src="js/bootstrap-nestedselect.js"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $.get('sampledata/animals.json', function (sampledata) {
+                    $("#ns").nestedselect(sampledata);
+                });
+
+                $("#btnlast").click(function () {
+                    console.log($("#ns").lastselected());
+                });
+
+
+                $("#btncrub").click(function () {
+                    console.log($("#ns").getbreadcrumbs());
+                });
+            });
+        </script>
+
+    </head>
+    <body>
+        <div id="ns">
+            <input type="hidden" name="breadcrubs" />
+        </div>
+        
+        <button type="button" id="btnlast">Log last</button> 
+        <button type="button" id="btncrub">Log Breadcrumbs</button>
+    </body>
+</html> 
