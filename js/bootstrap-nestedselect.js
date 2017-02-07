@@ -31,7 +31,7 @@ https://github.com/Klaifer/bootstrap-nestedselect
  */
 
 (function ($) {
-    $.fn.nestedselect = function (jsondata) {
+    $.fn.nestedselect = function (jsondata, breadcrumbs) {
         return this.each(function () {
             if (typeof jsondata !== 'object') {
                 console.log("Incompatible data type");
@@ -39,7 +39,7 @@ https://github.com/Klaifer/bootstrap-nestedselect
             }
 
             addpanel(this, jsondata);
-            updateOccurrenceSelector(this)
+            updateOccurrenceSelector(this, breadcrumbs)
             return this;
         });
     };
