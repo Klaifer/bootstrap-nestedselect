@@ -1,0 +1,140 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Refactored date examples</title>
+<link rel="stylesheet"
+	href="https://code.jquery.com/qunit/qunit-2.1.1.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="../css/bootstrap-nestedselect.css">
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/qunit/qunit-2.1.1.js"></script>
+<script src="../js/bootstrap-nestedselect.js"></script>
+<script type="text/javascript">
+	function doTest() {
+		$.get('../sampledata/animals.json', function(sampledata) {
+			$("#ns1").nestedselect(sampledata);
+			$("#ns2").nestedselect(sampledata);
+			$("#ns3").nestedselect(sampledata);
+			$("#ns4").nestedselect(sampledata, ['Chordate', 'Craniata', 'Vertebrata']);
+
+			QUnit.test("Insertion of panels", function(assert) {
+				assert.equal($("#ns1").hasClass("panel panel-default"), true);
+				assert.equal($("#ns1").children(".panel-body").length, 1);
+			});
+
+			QUnit.test("Presentation of the Initial Data", function(assert) {
+				var sample = $("#ns1").find("a").filter(function(index) {
+					return $(this).text() === "Chordate";
+				});
+				assert.equal(sample.length, 1);
+
+				assert.equal($("#ns1").find('.active').length, 0);
+			});
+
+			QUnit.test("Menu navigation", function(assert) {
+				//Select Link
+				var link = $("#ns2").find("a").filter(function(index) {
+					return $(this).text() === "Chordate";
+				});
+				
+				//Check if link exist
+				assert.equal(link.length, 1);
+								
+				//Click on link
+				link.trigger("click");
+				
+				//Check if new options was showed
+				assert.equal($("#ns2").find(".panel-body > .col-sm-2").length, 2);
+				
+				//Select a new link
+				link = $("#ns2").find("a").filter(function(index) {
+					return $(this).text() === "Craniata";
+				});
+				
+				//Check if link exist
+				assert.equal(link.length, 1);
+				
+				//Click on link
+				link.trigger("click");
+				
+				//Check if new options was showed
+				assert.equal($("#ns2").find(".panel-body > .col-sm-2").length, 3);
+				
+				//Select a new link on the first level
+				link = $("#ns2").find("a").filter(function(index) {
+					return $(this).text() === "Ambulacraria";
+				});
+				
+				//Check if link exist
+				assert.equal(link.length, 1);
+				
+				//Click on link
+				link.trigger("click");
+				
+				//Check if the old options was closed, and new data was showed
+				assert.equal($("#ns2").find(".panel-body > .col-sm-2").length, 1);
+				assert.equal($("#ns2").find(".panel-body > .col-sm-10").length, 1);				
+			});
+			
+			QUnit.test("Breadcrumbs on input", function(assert) {
+				//Select Link
+				var link = $("#ns3").find("a").filter(function(index) {
+					return $(this).text() === "Chordate";
+				});
+				link.trigger("click");
+				
+				var bcinput = $("#ns3").find("input");
+				assert.equal(bcinput.val(), "Chordate");
+				
+				link = $("#ns3").find("a").filter(function(index) {
+					return $(this).text() === "Craniata";
+				});
+				link.trigger("click");
+				assert.equal(bcinput.val(), "Chordate,Craniata");
+			});
+
+			QUnit.test("Starting with Breadcrumbs", function(assert) {
+				//Select Link
+				var selected = $("#ns4").find(".active");
+				assert.equal(selected.find("a").text(), "ChordateCraniataVertebrata");
+			});
+			
+		});
+	}
+
+	/*
+	 function doTest(){
+	 QUnit.test("addpanel", function(assert) {
+	 $.get('animals.json', function (sampledata) {
+	 $("#ns").nestedselect(sampledata);
+	
+	 assert.equal($("#ns").children(".panel-body").length, 1);
+	 });	
+	 });
+	 };
+	 */
+	window.onload = function() {
+		doTest();
+	}
+</script>
+</head>
+<body>
+
+	<div id="qunit"></div>
+	<!-- 	<div> -->
+	<div id="contenttotest">
+		<div id="ns1"></div>
+		<div id="ns2"></div>
+		<div id="ns3">
+			<input type="hidden">
+		</div>		
+		<div id="ns4"></div>
+	</div>
+</body>
+</html>
