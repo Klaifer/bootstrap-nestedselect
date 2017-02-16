@@ -37,6 +37,11 @@ https://github.com/Klaifer/bootstrap-nestedselect
                 console.log("Incompatible data type");
                 return this;
             }
+            
+            if (breadcrumbs)
+	            breadcrumbs = breadcrumbs.map(function(str){
+	                return(str.replace(/^'(.+)'$/,'$1'));
+	            });
 
             addpanel(this, jsondata);
             updateOccurrenceSelector(this, breadcrumbs)
@@ -90,9 +95,9 @@ https://github.com/Klaifer/bootstrap-nestedselect
         var valueholder = $(element).children('input');        
         
         if (breadcrumbs === undefined)
-            breadcrumbs = "";
+            breadcrumbs = [];
         
-        valueholder.val(breadcrumbs);
+        valueholder.val("'"+breadcrumbs.join("','")+"'");
     }
 
     function getSelectorOptions(subselect, breadcrumbs) {        
