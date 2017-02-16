@@ -17,7 +17,7 @@
 <script src="../js/bootstrap-nestedselect.js"></script>
 <script type="text/javascript">
 	function doTest() {
-		$.get('animals.json', function(sampledata) {
+		$.get('../sampledata/animals.json', function(sampledata) {
 			$("#ns1").nestedselect(sampledata);
 			$("#ns2").nestedselect(sampledata);
 			$("#ns3").nestedselect(sampledata);
@@ -90,13 +90,13 @@
 				link.trigger("click");
 				
 				var bcinput = $("#ns3").find("input");
-				assert.equal(bcinput.val(), "Chordate");
+				assert.equal(bcinput.val(), "'Chordate'");
 				
 				link = $("#ns3").find("a").filter(function(index) {
 					return $(this).text() === "Craniata";
 				});
 				link.trigger("click");
-				assert.equal(bcinput.val(), "Chordate,Craniata");
+				assert.equal(bcinput.val(), "'Chordate','Craniata'");
 			});
 
 			QUnit.test("Starting with Breadcrumbs", function(assert) {
