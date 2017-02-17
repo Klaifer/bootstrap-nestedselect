@@ -27,7 +27,7 @@
 				assert.equal($("#ns1").hasClass("panel panel-default"), true);
 				assert.equal($("#ns1").children(".panel-body").length, 1);
 			});
-
+			
 			QUnit.test("Presentation of the Initial Data", function(assert) {
 				var sample = $("#ns1").find("a").filter(function(index) {
 					return $(this).text() === "Chordate";
@@ -83,13 +83,15 @@
 			});
 			
 			QUnit.test("Breadcrumbs on input", function(assert) {
-				//Select Link
+				var bcinput = $("#ns3").find("input");
+				assert.equal(bcinput.val(), "");
+
 				var link = $("#ns3").find("a").filter(function(index) {
 					return $(this).text() === "Chordate";
 				});
 				link.trigger("click");
 				
-				var bcinput = $("#ns3").find("input");
+				bcinput = $("#ns3").find("input");
 				assert.equal(bcinput.val(), "'Chordate'");
 				
 				link = $("#ns3").find("a").filter(function(index) {
@@ -108,17 +110,6 @@
 		});
 	}
 
-	/*
-	 function doTest(){
-	 QUnit.test("addpanel", function(assert) {
-	 $.get('animals.json', function (sampledata) {
-	 $("#ns").nestedselect(sampledata);
-	
-	 assert.equal($("#ns").children(".panel-body").length, 1);
-	 });	
-	 });
-	 };
-	 */
 	window.onload = function() {
 		doTest();
 	}
@@ -132,7 +123,7 @@
 		<div id="ns1"></div>
 		<div id="ns2"></div>
 		<div id="ns3">
-			<input type="hidden">
+			<input type="hidden" autocomplete="off">
 		</div>		
 		<div id="ns4"></div>
 	</div>
