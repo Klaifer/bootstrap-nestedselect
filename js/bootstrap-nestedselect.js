@@ -94,7 +94,7 @@ https://github.com/Klaifer/bootstrap-nestedselect
 
         var valueholder = $(element).children('input');        
         
-        if (breadcrumbs === undefined)
+        if (!breadcrumbs)
             breadcrumbs = [];
         
         valueholder.val("'"+breadcrumbs.join("','")+"'");
