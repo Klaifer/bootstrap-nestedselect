@@ -94,10 +94,9 @@ https://github.com/Klaifer/bootstrap-nestedselect
 
         var valueholder = $(element).children('input');        
         
-        if (!breadcrumbs)
-            breadcrumbs = [];
-        
-        valueholder.val("'"+breadcrumbs.join("','")+"'");
+        console.log(breadcrumbs);
+        if ((breadcrumbs)&&(breadcrumbs.length>0))
+            valueholder.val("'"+breadcrumbs.join("','")+"'");
     }
 
     function getSelectorOptions(subselect, breadcrumbs) {        
